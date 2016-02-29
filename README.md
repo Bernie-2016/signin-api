@@ -1,3 +1,7 @@
+[![Circle CI](https://circleci.com/gh/Bernie-2016/signin-api.svg?style=shield)](https://circleci.com/gh/Bernie-2016/signin-api)
+[![Code Climate](https://codeclimate.com/github/Bernie-2016/signin-api/badges/gpa.svg)](https://codeclimate.com/github/Bernie-2016/signin-api)
+[![Test Coverage](https://codeclimate.com/github/Bernie-2016/signin-api/badges/coverage.svg)](https://codeclimate.com/github/Bernie-2016/signin-api/coverage)
+
 # signin-api
 
 signin-api and signin-frontend are a tool used for guests to sign in at Bernie events.
