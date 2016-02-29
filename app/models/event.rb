@@ -10,9 +10,7 @@ class Event < ActiveRecord::Base
 
   default_scope -> { order(created_at: :desc) }
 
-  def signups_count
-    signups.count
-  end
+  delegate :count, to: :signups, prefix: true
 
   def as_json(options = {})
     super(options.reverse_merge(methods: %i(signups_count questions)))

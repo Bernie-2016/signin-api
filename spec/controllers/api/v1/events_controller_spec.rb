@@ -120,7 +120,7 @@ describe Api::V1::EventsController do
     subject { post :create, event: event }
 
     context 'missing params' do
-      let(:event) { { date: Date.today } }
+      let(:event) { { date: Time.zone.today } }
 
       it 'returns 422' do
         expect(subject).to have_http_status(422)
@@ -128,7 +128,7 @@ describe Api::V1::EventsController do
     end
 
     context 'with all required params' do
-      let(:event) { { name: 'Bernie Bake-off', slug: 'bbo', date: Date.today } }
+      let(:event) { { name: 'Bernie Bake-off', slug: 'bbo', date: Time.zone.today } }
 
       it 'returns 200' do
         expect(subject).to have_http_status(200)

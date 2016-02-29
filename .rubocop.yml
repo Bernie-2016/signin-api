@@ -3,6 +3,7 @@ AllCops:
     - bin/**/*
     - db/**/*
     - vendor/**/*
+  TargetRubyVersion: 2.3
 
 AbcSize:
   Enabled: false
@@ -10,9 +11,13 @@ CyclomaticComplexity:
   Enabled: false
 Documentation:
   Enabled: false
+FrozenStringLiteralComment:
+  Enabled: false
 LineLength:
   Enabled: false
 MethodLength:
   Max: 40
 PerceivedComplexity:
   Enabled: false
+Rails:
+  Enabled: true

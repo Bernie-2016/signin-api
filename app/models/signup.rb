@@ -24,7 +24,7 @@ class Signup < ActiveRecord::Base
         form.signup_form_field(first_name, id: 8363)
         form.signup_form_field(last_name, id: 8365)
         form.signup_form_field(email, id: 8361)
-        form.signup_form_field(phone, id: 8372) unless phone.blank? || phone == "\"\""
+        form.signup_form_field(phone, id: 8372) unless phone.blank? || phone == '""'
         form.signup_form_field(zip, id: 8370)
         form.signup_form_field((can_text == 'Yes' ? 1 : 0), id: 8375)
         form.source(event.tag) unless event.try(:tag).blank?
