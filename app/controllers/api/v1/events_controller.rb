@@ -1,7 +1,7 @@
 module Api
   module V1
     class EventsController < ApplicationController
-      before_action :check_token!
+      before_action :check_token!, except: [:slug]
 
       def index
         scoped_events =
@@ -16,6 +16,10 @@ module Api
       def show
         authorize! :read, current_event
         render json: current_event
+      end
+
+      def slug
+        render json: Event.find_by(slug: params[:event_id])
       end
 
       def csv
@@ -35,7 +39,10 @@ module Api
 
       def update
         authorize! :update, current_event
+        current_ids = current_event.questions.pluck(:id)
         if current_event.update(event_params)
+          included_ids = (event_params['questions_attributes'] || {}).map { |_, v| v['id'] }
+          current_event.questions.where(id: current_ids).where.not(id: included_ids).destroy_all
           render json: current_event, status: 200
         else
           render json: current_event.errors, status: 422

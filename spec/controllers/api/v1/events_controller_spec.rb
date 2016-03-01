@@ -96,6 +96,15 @@ describe Api::V1::EventsController do
     end
   end
 
+  describe '#slug' do
+    subject { get :slug, event_id: user_event.slug }
+
+    it 'returns event' do
+      response = JSON.parse(subject.body)
+      expect(response['name']).to eq(user_event.name)
+    end
+  end
+
   describe '#csv' do
     let(:event_id) { user_event.id }
     let!(:signups) { create_list(:signup, 25, event: user_event) }

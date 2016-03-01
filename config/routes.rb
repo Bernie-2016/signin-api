@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :events, except: [:new, :edit] do
         get :csv
+        get :slug
       end
       resources :signups, only: [:create]
       namespace :users do

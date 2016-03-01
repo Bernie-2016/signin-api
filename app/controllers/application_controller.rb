@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
   around_action :catch_halt
 
   def current_user
-    @current_user ||= User.find_by_email(user_data['email'])
+    @current_user ||= User.find_or_create_by(email: user_data['email'])
   end
 
   def render(*args)
