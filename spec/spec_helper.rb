@@ -24,6 +24,8 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'webmock/rspec'
 
+WebMock.disable_net_connect!(allow_localhost: true, allow: %w(codeclimate.com))
+
 # Checks for pending migrations before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
 
