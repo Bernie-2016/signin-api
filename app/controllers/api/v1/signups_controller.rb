@@ -3,8 +3,9 @@ module Api
     class SignupsController < ApplicationController
       def create
         signup_params = params[:signups].values.first
+        signup_params[:extra_fields] = JSON.parse(signup_params[:extra_fields].gsub(/([a-zA-Z_]+):/, '"\1":'))
         signup_params[:can_text] = (signup_params[:canText] == 'true') ? 'Yes' : 'No'
-        signup_params[:event_id] ||= Event.default.id
+        signup_params[:event_id] = signup_params[:extra_fields][:event_id] || Event.default.id
         signup_params.reject! { |param, _| permitted_params.exclude? param.intern }
         signup = Signup.new ActiveSupport::HashWithIndifferentAccess.new(signup_params)
         if signup.save
