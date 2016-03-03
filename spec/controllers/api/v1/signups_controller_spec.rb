@@ -30,7 +30,7 @@ describe Api::V1::SignupsController do
       let!(:event) { create :event }
 
       context 'valid' do
-        let(:signup) { build(:signup, extra_fields: [questions: [question_id: '', response: '']]) }
+        let(:signup) { build(:signup, extra_fields: [{ questions: [question_id: '', response: ''] }].to_json) }
 
         it 'returns 200 as normal' do
           expect(subject).to have_http_status(200)
@@ -38,7 +38,7 @@ describe Api::V1::SignupsController do
       end
 
       context 'invalid' do
-        context 'extra fields is not an array' do
+        context 'extra fields is not an object' do
           let(:signup) { build(:signup, extra_fields: 'hi') }
 
           it 'returns 422' do
@@ -47,7 +47,7 @@ describe Api::V1::SignupsController do
         end
 
         context 'no `questions` key' do
-          let(:signup) { build(:signup, extra_fields: [random_key: []]) }
+          let(:signup) { build(:signup, extra_fields: [{ random_key: [] }].to_json) }
 
           it 'returns 422' do
             expect(subject).to have_http_status(422)
@@ -55,7 +55,7 @@ describe Api::V1::SignupsController do
         end
 
         context '`questions` key is not an array' do
-          let(:signup) { build(:signup, extra_fields: [questions: {}]) }
+          let(:signup) { build(:signup, extra_fields: [{ questions: {} }].to_json) }
 
           it 'returns 422' do
             expect(subject).to have_http_status(422)
@@ -63,7 +63,7 @@ describe Api::V1::SignupsController do
         end
 
         context 'nested `questions` array hash that does not contain question_id and response' do
-          let(:signup) { build(:signup, extra_fields: [questions: [not_question_id: '', not_response: '']]) }
+          let(:signup) { build(:signup, extra_fields: [{ questions: [not_question_id: '', not_response: ''] }].to_json) }
 
           it 'returns 422' do
             expect(subject).to have_http_status(422)

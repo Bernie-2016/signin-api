@@ -38,34 +38,30 @@ class Signup < ActiveRecord::Base
 
   def answer(question)
     fields = (extra_fields || {})
-    questions = fields[:questions] || []
-    ans = questions.find { |a| a.question_id == question.id }
-    ans.try(:response)
+    questions = fields['questions'] || []
+    ans = questions.find { |a| a['question_id'] == question.id } || {}
+    ans['response']
   end
 
   def validate_extra_fields
     return unless extra_fields
 
-    if extra_fields.is_a?(Array)
-      extra_fields.each do |data_fields|
-        data_fields.stringify_keys!
+    if extra_fields.is_a?(Hash)
+      extra_fields.stringify_keys!
 
-        if data_fields.key?('questions')
-          unless data_fields['questions'].is_a?(Array)
-            errors.add(:extra_fields, 'Questions must be an array')
-          end
-
-          data_fields['questions'].each do |question|
-            unless question.keys == %w(question_id response)
-              errors.add(:extra_fields, 'Improperly formatted questions array')
-            end
-          end
-
-        else
-          errors.add(:extra_fields, 'Data must contain `questions` field')
+      if extra_fields.key?('questions')
+        unless extra_fields['questions'].is_a?(Array)
+          errors.add(:extra_fields, 'Questions must be an array')
         end
-      end
 
+        extra_fields['questions'].each do |question|
+          unless question.keys == %w(question_id response)
+            errors.add(:extra_fields, 'Improperly formatted questions array')
+          end
+        end
+      else
+        errors.add(:extra_fields, 'Data must contain `questions` field')
+      end
     else
       errors.add(:extra_fields, 'Data must be an object')
     end
