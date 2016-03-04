@@ -4,6 +4,6 @@ FactoryGirl.define do
 
     name { Faker::Lorem.word }
     slug { Faker::Internet.slug }
-    date { Date.today }
+    date { Time.zone.today }
   end
 end
