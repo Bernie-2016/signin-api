@@ -29,8 +29,12 @@ class Signup < ActiveRecord::Base
         form.signup_form_field((can_text == 'Yes' ? 1 : 0), id: 8375)
         if event
           name = event.name.gsub(/[^A-Za-z]/i, '')
-          date = event.date.strftime('%m%d%Y')
-          form.source("#{name}-#{date}")
+          if event.date
+            date = event.date.strftime('%m%d%Y')
+            form.source("#{name}-#{date}")
+          else
+            form.source(name)
+          end
         end
       end
     end
