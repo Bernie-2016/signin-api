@@ -7,8 +7,6 @@ class Signup < ActiveRecord::Base
 
   validates :first_name, :last_name, :email, :zip, :can_text, presence: true
 
-  default_scope -> { order(date: :desc) }
-
   def send_to_bsd!
     # Skip if email or zip is malformed.
     unless email.include?('@') && zip.try(:size) == 5

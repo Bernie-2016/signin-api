@@ -8,7 +8,7 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :questions, allow_destroy: true
 
-  default_scope -> { order(created_at: :desc) }
+  default_scope -> { order(date: :desc) }
 
   delegate :count, to: :signups, prefix: true
 
