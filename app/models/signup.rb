@@ -27,7 +27,11 @@ class Signup < ActiveRecord::Base
         form.signup_form_field(phone, id: 8372) unless phone.blank? || phone == '""'
         form.signup_form_field(zip, id: 8370)
         form.signup_form_field((can_text == 'Yes' ? 1 : 0), id: 8375)
-        form.source(event.tag) unless event.try(:tag).blank?
+        if event
+          name = event.name.gsub(/[^A-Za-z]/i, '')
+          date = event.date.strftime('%m%d%Y')
+          form.source("#{name}-#{date}")
+        end
       end
     end
 
