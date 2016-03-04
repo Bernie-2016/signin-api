@@ -12,7 +12,7 @@ module Api
           end
           signup_params['event_id'] = signup_params['extra_fields']['event_id']
         end
-        signup_params['can_text'] = (signup_params['canText'] == 'true') ? 'Yes' : 'No'
+        signup_params['can_text'] = (signup_params['canText'] || signup_params['can_text'] == 'true') ? 'Yes' : 'No'
         signup_params['event_id'] ||= Event.default.id
         signup_params.reject! { |param, _| permitted_params.exclude? param.intern }
         signup = Signup.new ActiveSupport::HashWithIndifferentAccess.new(signup_params)
