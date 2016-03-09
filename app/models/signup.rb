@@ -9,7 +9,7 @@ class Signup < ActiveRecord::Base
 
   def send_to_bsd!
     # Skip if email or zip is malformed.
-    unless email.include?('@') && zip.try(:size) == 5
+    unless email.include?('@') && zip.try(:size) == 5 && zip =~ /^[0-9]+$/
       update(posted_bsd: true)
       return
     end
