@@ -14,6 +14,18 @@ describe Api::V1::SignupsController do
       end
     end
 
+    context 'signup exists' do
+      let!(:existing_signup) { create(:signup, email: signup.email, event_id: signup.event_id) }
+
+      it 'returns 200' do
+        expect(subject).to have_http_status(200)
+      end
+
+      it 'does not create the signup' do
+        expect { subject }.to change { Signup.count }.by(0)
+      end
+    end
+
     context 'missing param' do
       let(:signup) { build(:signup, first_name: nil) }
 

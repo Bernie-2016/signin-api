@@ -14,6 +14,7 @@ module Api
         end
         signup_params['can_text'] = (signup_params['canText'] || signup_params['can_text'] == 'true') ? 'Yes' : 'No'
         signup_params['event_id'] ||= Event.default.id
+        render(nothing: true, status: 200) if Signup.exists?(event_id: signup_params['event_id'], email: signup_params['email'])
         signup_params.reject! { |param, _| permitted_params.exclude? param.intern }
         signup = Signup.new ActiveSupport::HashWithIndifferentAccess.new(signup_params)
         if signup.save
