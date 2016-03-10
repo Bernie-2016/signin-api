@@ -10,6 +10,7 @@ module Api
           rescue JSON::ParserError
             render json: { erros: 'extra fields invalid' }, status: 422
           end
+          signup_params['extra_fields'] = signup_params['extra_fields'].first if signup_params['extra_fields'].is_a?(Array)
           signup_params['event_id'] = signup_params['extra_fields']['event_id']
         end
         signup_params['can_text'] = (signup_params['canText'] || signup_params['can_text'] == 'true') ? 'Yes' : 'No'
