@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   has_many :signups
 
   validates :name, :slug, presence: true
-  validates :slug, uniqueness: true
+  validates :slug, uniqueness: { case_sensitive: false }
 
   accepts_nested_attributes_for :questions, allow_destroy: true
 

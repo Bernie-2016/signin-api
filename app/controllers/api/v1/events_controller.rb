@@ -19,7 +19,7 @@ module Api
       end
 
       def slug
-        render json: Event.find_by(slug: params[:event_id])
+        render json: Event.where('lower(slug) = ?', params[:event_id].downcase).first
       end
 
       def csv
