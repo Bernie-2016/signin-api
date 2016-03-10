@@ -8,6 +8,6 @@ class Question < ActiveRecord::Base
   protected
 
   def verify_type
-    errors.add(:type, 'Invalid question type') unless %w(checkbox text).include? type
+    errors.add(:type, 'Invalid question type') unless %w(checkbox text gotv).include? type
   end
 end
