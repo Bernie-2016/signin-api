@@ -58,7 +58,7 @@ module Api
       private
 
       def event_params
-        params.require(:event).permit(:name, :date, :slug, :early_access, :color, questions_attributes: [:id, :title, :type])
+        params.require(:event).permit(:name, :date, :slug, :early_access, :color, questions_attributes: [:id, :title, :type, choices: []])
       end
 
       def current_event

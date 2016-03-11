@@ -5,9 +5,11 @@ class Question < ActiveRecord::Base
 
   validate :verify_type
 
+  serialize :choices, Array
+
   protected
 
   def verify_type
-    errors.add(:type, 'Invalid question type') unless %w(checkbox text gotv).include? type
+    errors.add(:type, 'Invalid question type') unless %w(checkbox text select gotv).include? type
   end
 end
