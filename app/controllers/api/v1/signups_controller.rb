@@ -6,7 +6,7 @@ module Api
         signup_params.stringify_keys!
         if signup_params['extra_fields']
           begin
-            signup_params['extra_fields'] = JSON.parse(signup_params['extra_fields'].gsub(/([a-zA-Z_]+):/, '"\1":')).first
+            signup_params['extra_fields'] = JSON.parse(signup_params['extra_fields'].gsub(/([a-zA-Z_]+):/, '"\1":').gsub(/:([a-zA-Z_]+)\}/, ':"\1"}')).first
           rescue JSON::ParserError
             render json: { erros: 'extra fields invalid' }, status: 422
           end
