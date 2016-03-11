@@ -48,7 +48,11 @@ class Signup < ActiveRecord::Base
     fields = (extra_fields || {})
     questions = fields['questions'] || []
     ans = questions.find { |a| a['question_id'] == question.id } || {}
-    ans['response']
+    if question.type == 'checkbox' || question.type == 'gotv'
+      ans['response'] ? 'Yes' : 'No'
+    else
+      ans['response']
+    end
   end
 
   def validate_extra_fields
