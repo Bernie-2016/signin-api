@@ -49,7 +49,7 @@ class Signup < ActiveRecord::Base
     questions = fields['questions'] || []
     ans = questions.find { |a| a['question_id'] == question.id } || {}
     if question.type == 'checkbox' || question.type == 'gotv'
-      ans['response'] ? 'Yes' : 'No'
+      ans['response'] == 'true' ? 'Yes' : 'No'
     else
       ans['response']
     end
